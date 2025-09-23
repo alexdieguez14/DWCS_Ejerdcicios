@@ -18,7 +18,7 @@
             if(($i = strpos($p2, $letra))===false){
                 return false;
             }else{
-                substr_replace($p2, '',$i, 1 );
+                $p2 = substr_replace($p2, '',$i, 1 );
             }
         }
 
