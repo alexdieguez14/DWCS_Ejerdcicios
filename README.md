@@ -14,6 +14,8 @@
 * [3. Sumatorio](UD1/Ejercicios/1_1/e03.php)
 * [4. Calcular volumen de un cilindro](UD1/Ejercicios/1_1/e04.php)
 * [5: Reverso](UD1/Ejercicios/1_1/e05.php)
+* [6: Positivo negativo](UD1/Ejercicios/1_1/e06.php)
+* [7: Anagrama](UD1/Ejercicios/1_1/e07.php)
 
 # [Unidad 2](UD2)
  > **Cookies** - **sesiones** - **seguridad**
