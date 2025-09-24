@@ -16,6 +16,7 @@
 * [5: Reverso](UD1/Ejercicios/1_1/e05.php)
 * [6: Positivo negativo](UD1/Ejercicios/1_1/e06.php)
 * [7: Anagrama](UD1/Ejercicios/1_1/e07.php)
+* [10: Simón dice](UD1/Ejercicios/1_1/e10.php)
 
 # [Unidad 2](UD2)
  > **Cookies** - **sesiones** - **seguridad**
