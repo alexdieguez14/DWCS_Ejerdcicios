@@ -6,6 +6,7 @@
 ### [Ejemplos](UD1/Ejemplos)
 * [Hola mundo](UD1/Ejemplos/hola_mundo.php)
 * [Formularios POST](UD1/Ejemplos/formulario.php)
+* [Ejemplos de Programación Orientada a Objetos](UD1/Ejemplos/poo)
 
 ### [Ejercicios](UD1/Ejercicios)
 #### [Actividad 1.1: Ejercicios PHP sin acceso a bases de datos](UD1/Ejercicios/1_1)
