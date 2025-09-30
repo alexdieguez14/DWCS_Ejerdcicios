@@ -56,10 +56,10 @@ class Estudiante extends Persona{
 
 //Prueba
 
-$d = new Direccion("plaza mayor, 3", "Vilagarcía", "36250");
-$estudiante = new Estudiante("Pedro", 20, $d, "Desarrollo Web");
-$estudiante->addCalificacion(5)
-            ->addCalificacion(7)
-            ->addCalificacion(8);
-echo $estudiante->mostrarInformacion();
-echo "<br>PROMEDIO: ",$estudiante->getMedia();
+// $d = new Direccion("plaza mayor, 3", "Vilagarcía", "36250");
+// $estudiante = new Estudiante("Pedro", 20, $d, "Desarrollo Web");
+// $estudiante->addCalificacion(5)
+//             ->addCalificacion(7)
+//             ->addCalificacion(8);
+// echo $estudiante->mostrarInformacion();
+// echo "<br>PROMEDIO: ",$estudiante->getMedia();
