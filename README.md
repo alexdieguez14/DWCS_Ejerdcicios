@@ -34,6 +34,8 @@
 * [9: Abstracción y Clases Abstractas](UD1/Ejercicios/1_2/e09.php)
 * [10: Interfaces y Múltiples Tipos de Objetos](UD1/Ejercicios/1_2/e10.php)
 
+#### [Actividad 1.3: Ejercicios PHP con acceso a bases de datos](UD1/Ejercicios/1_3)
+
 # [Unidad 2](UD2)
  > **Cookies** - **sesiones** - **seguridad**
  
