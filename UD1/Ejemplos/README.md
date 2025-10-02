@@ -10,3 +10,9 @@ Incrustar código PHP en un fichero HTML.
 * [Herencia](poo/clasehija.php): acceso a métodos de la [superclase](poo/clasemadre.php), atributos y sobreescritura de métodos.
 * [Interfaces](poo/figura.php): Declaración de interfaces e [implementación de interfaces](poo/poligono.php).
 * [Clases abstractas](poo/poligono.php): Declaración de clases abstractas y [herencia de las mismas](poo/cuadrado.php).
+
+## [Ejemplos de Acceso a bases de datos](bbdd)
+* [Insert con mysqli](bbdd/conexion_BD_mysqli_insert.php)
+* [Select con mysqli](bbdd/conexion_BD_mysqli_select.php)
+* [Insert con PDO](bbdd/conexion_BD_PDO_insert.php)
+* [Select con PDO](bbdd/conexion_BD_PDO_select.php)
