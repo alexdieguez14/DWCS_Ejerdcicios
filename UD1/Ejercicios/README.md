@@ -3,3 +3,4 @@
 
 ## [Actividad 1.1: Ejercicios PHP sin acceso a bases de datos](1_1)
 ## [Actividad 1.2: Ejercicios PHP de Programación Orientada a Objetos](1_2)
+## [Actividad 1.3: Ejercicios PHP con acceso a bases de datos](1_3)
