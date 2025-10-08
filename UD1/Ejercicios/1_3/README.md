@@ -1,7 +1,7 @@
 # Actividad 1.3
 > Ejercicios PHP con acceso a bases de datos
 
-## Ejercicio 1: Login
+## [Ejercicio 1: Login](1_3_1)
 Vamos a implementar una página de registro y otra de login. Ambas páginas deben estar enlazadas y los datos deben ser persistentes. Los datos que interesan registrar de un usuario son:
 
 * Nombre: Campo alfanumérico, obligatorio de 60 caracteres como máximo.
@@ -16,13 +16,13 @@ Vamos a implementar una página de registro y otra de login. Ambas páginas debe
 
 * Contraseña: campo alfanumérico que puede tener el tamaño que sea. Debe almacenarse el hash (256 caracteres).
 
-## Ejercicio 2: Catálogo de videojuegos
+## [Ejercicio 2: Catálogo de videojuegos](videojuegos/acceso_datos.php)
 Vamos a crear un sistema básico de gestión de videojuegos utilizando PHP para acceder a una base de datos MySQL. El sistema permitirá realizar las operaciones de alta, baja, modificación y consulta sobre una tabla de videojuegos.
 
 Puedes partir de los ficheros base de html que están adjuntos. Tienes el esquema de la base de datos y algunos datos de prueba en el fichero videoteca.sql.
 
-## Ejercicio 3: Ampliación I catálogo de videojuegos 
+## [Ejercicio 3: Ampliación I catálogo de videojuegos](videojuegos/listar.php)
 Incluye un fieldset en la página de listar videojuegos para que sea posible filtrar la búsqueda por nombre, plataforma, año y género.
 
-## Ejercicio 4: Ampliación II catálogo de videojuegos 
+## [Ejercicio 4: Ampliación II catálogo de videojuegos](videojuegos/listar.php) 
 Ahora haz que se pueda ordenar ascendente por cada una de las columnas de la tabla. Esto se hará pulsando en el nombre de la columna que será un enlace.

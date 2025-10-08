@@ -36,10 +36,8 @@ function getVideojuego(int $id): Videojuego|false
 }
 /**
  * Summary of getVideojuegos
- * @param array $filtros los filtros son las claves del array y pueden ser:
- *                       fil_nombre,fil_plataforma,fil_lanzamiento y fil_genero
- * @param mixed $order el orden es opcional y puede tener uno de los valores:
- *                      anio_lanzamiento, genero, nombre o plataforma.
+ * @param array $filtros los filtros son las claves del array y pueden ser: fil_nombre,fil_plataforma,fil_lanzamiento y fil_genero
+ * @param mixed $order el orden es opcional y puede tener uno de los valores: anio_lanzamiento, genero, nombre o plataforma.
  * @return Videojuego[]
  */
 function getVideojuegos(array $filtros, $order = null): array
@@ -47,7 +45,8 @@ function getVideojuegos(array $filtros, $order = null): array
     $sql = "SELECT id, anio_lanzamiento, genero, nombre, plataforma FROM videojuegos";
     //Si tiene filtros vamos a tenerun where.
     if (isset($filtros) && count($filtros) > 0) {
-        $sql .= " WHERE ";
+        //Que es esto de 1=1?? Pues esto es TRUE. Es un truco que nos permite agregar los filtros poniendo siempre la sentencia AND antes de cada parámetro. :D
+        $sql .= " WHERE 1=1 ";
         //Ahora agregamos los filtros.
         foreach ($filtros as $key => $value) {
             $param = '';
@@ -65,8 +64,10 @@ function getVideojuegos(array $filtros, $order = null): array
                     $param = "genero";
                     break;
             }
+            //Si tenemos parámetro lo agregamos al WHERE de la consulta.
             if(!empty($param)){
-                $sql .= $param;
+                //El '%$value%' nos permite buscar parámetros que coincidan parcialmente con el filtro.
+                $sql .= " AND $param LIKE '%$value%'";
             }
         }
     }

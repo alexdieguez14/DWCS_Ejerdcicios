@@ -12,6 +12,24 @@ if (isset($_GET["eliminar"])) {
     //Esto es una redirección y nos sirve para que no se quede el parámetro eliminar en la URL
     header("Location: listar.php");
 }
+//RECUPERACION DE DATOS
+
+//Si tiene filtros los agregamos a un array de filtros
+$filtros = [];
+foreach ($_REQUEST as $param => $value) {
+    if (str_starts_with($param, 'fil_')) {
+        $filtros[$param] = $value;
+    }
+}
+//Si tiene un parámetro de ordenación lo recuperamos.
+$orden = $_REQUEST["order"] ?? null;
+
+//Si tiene orden lo aplicamos
+if (isset($_REQUEST["order"])) {
+    $videojuegos = getVideojuegos($filtros, $_REQUEST["order"]);
+} else {
+    $videojuegos = getVideojuegos($filtros);
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -26,45 +44,35 @@ if (isset($_GET["eliminar"])) {
     <!-- Filtros de búsqueda -->
     <fieldset>
         <legend>Filtros de búsqueda</legend>
-        <!-- Envio el formulario por get para que me mantenga los parametros de ordenación de la tabla. -->
-        <form action="" method="get">
-            <label for="fil_nombre"></label>
-            <input type="text" name="fil_nombre"><br>
-            <label for="fil_plataforma"></label>
-            <input type="text" name="fil_plataforma"><br>
-            <label for="fil_lanzamiento"></label>
-            <input type="text" name="fil_lanzamiento"><br>
-            <label for="fil_genero"></label>
-            <input type="text" name="fil_genero"><br>
+        <!-- Si tenemos una ordenación se la pasamos como parámetro de la URL para mantenerla después de aplicar el filtro.-->
+        <form action="<?=isset($order)?"order=$order":""?>" method="post">
+            <label for="fil_nombre">Nombre</label>
+            <input type="text" name="fil_nombre" value="<?=$_REQUEST['fil_nombre']??''?>"><br>
+            <label for="fil_plataforma">Plataforma</label>
+            <input type="text" name="fil_plataforma" value="<?=$_REQUEST['fil_plataforma']??''?>"><br>
+            <label for="fil_lanzamiento">Año de lanzamiento</label>
+            <input type="text" name="fil_lanzamiento" value="<?=$_REQUEST['fil_lanzamiento']??''?>"><br>
+            <label for="fil_genero">Genero</label>
+            <input type="text" name="fil_genero" value="<?=$_REQUEST['fil_genero']??''?>"><br>
             <button type="submit">Filtrar</button>
         </form>
     </fieldset>
     <h1>Videojuegos registrados</h1>
     <table>
-        <tr>
-            <th><a href="?order=nombre">Nombre</a></th>
-            <th><a href="?order=plataforma">Plataforma</a></th>
-            <th><a href="?order=anio_lanzamiento">Año</a></th>
-            <th><a href="?order=genero">Género</a></th>
-            <th><a href="">Acciones</a></th>
-        </tr>
-        <!-- Datos de ejemplo. Tiene que ser dinámico -->
         <?php
-        //Si tiene un parámetro de ordenación lo recuperamos.
-        $orden = $_REQUEST["order"]??null;
-        //Si tiene filtros los agregamos a un array de filtros
-        $filtros = [];
-        foreach($_REQUES as $param=>$value){
-            if(str_starts_with($param,'fil_')){
-                $filtros[$param]= $value;
-            }
+        //Para mantener los filtros de búsqueda anteriores, vamos a meterlos en la URL de cada enlace
+        foreach ($filtros as $key => $value) {
+            $params .= "&$key=$value";
         }
-        if(isset($_REQUEST["order"])){
-            $videojuegos = getVideojuegos($filtros,$_REQUEST["order"]);
-        }else{
-            $videojuegos = getVideojuegos($filtros);
-        }
-        
+
+        echo "<tr>";
+        echo "    <th><a href='?order=nombre$params'>Nombre</a></th>";
+        echo "    <th><a href='?order=plataforma$params'>Plataforma</a></th>";
+        echo "    <th><a href='?order=anio_lanzamiento$params'>Año</a></th>";
+        echo "    <th><a href='?order=genero$params'>Género</a></th>";
+        echo "    <th><a >Acciones</a></th>";
+        echo "</tr>";
+
         foreach ($videojuegos as $v) {
             echo "<tr>";
             echo "<td>", $v->getNombre(), "</td>";

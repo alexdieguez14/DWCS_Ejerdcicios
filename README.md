@@ -36,6 +36,9 @@
 
 #### [Actividad 1.3: Ejercicios PHP con acceso a bases de datos](UD1/Ejercicios/1_3)
 * [1. Login y registro](UD1/Ejercicios/1_3/1_3_1/login.php)
+* [2. CRUD con base de datos](UD1/Ejercicios/1_3/videojuegos/login.php)
+* [3. Filtros de búsqueda](UD1/Ejercicios/1_3/videojuegos/login.php)
+* [4. Ordenación de una tabla](UD1/Ejercicios/1_3/videojuegos/login.php)
 
 # [Unidad 2](UD2)
  > **Cookies** - **sesiones** - **seguridad**
