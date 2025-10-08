@@ -40,6 +40,18 @@
 * [3. Filtros de búsqueda](UD1/Ejercicios/1_3/videojuegos/login.php)
 * [4. Ordenación de una tabla](UD1/Ejercicios/1_3/videojuegos/login.php)
 
+#### [Actividad 1.4: Validación y saneamiento](UD1/Ejercicios/1_4)
+* [1. Validar un email y mostrar mensaje](UD1/Ejercicios/1_4/e01.php)
+* [2. Saneamiento de texto con caracteres especiales](UD1/Ejercicios/1_4/e02.php)
+* [3. Validar edad con rango](UD1/Ejercicios/1_4/e03.php)
+* [4. Saneamiento y validación de URL](UD1/Ejercicios/1_4/e04.php)
+* [5. Validar IP con flags](UD1/Ejercicios/1_4/e05.php)
+* [6. Validar y sanear número flotante](UD1/Ejercicios/1_4/e06.php)
+* [7. Validar nombre con expresión regular](UD1/Ejercicios/1_4/e07.php)
+* [8. Saneamiento de texto completo](UD1/Ejercicios/1_4/e08.php)
+* [9. Validar booleanos con distintos valores](UD1/Ejercicios/1_4/e09.php)
+* [10. Validar y sanear formulario completo](UD1/Ejercicios/1_4/e10.php)
+
 # [Unidad 2](UD2)
  > **Cookies** - **sesiones** - **seguridad**
  
