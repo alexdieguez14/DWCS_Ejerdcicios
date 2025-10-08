@@ -34,10 +34,43 @@ function getVideojuego(int $id): Videojuego|false
     $db = null;
     return $videojuego;
 }
-
-function getVideojuegos($order = null): array
+/**
+ * Summary of getVideojuegos
+ * @param array $filtros los filtros son las claves del array y pueden ser:
+ *                       fil_nombre,fil_plataforma,fil_lanzamiento y fil_genero
+ * @param mixed $order el orden es opcional y puede tener uno de los valores:
+ *                      anio_lanzamiento, genero, nombre o plataforma.
+ * @return Videojuego[]
+ */
+function getVideojuegos(array $filtros, $order = null): array
 {
     $sql = "SELECT id, anio_lanzamiento, genero, nombre, plataforma FROM videojuegos";
+    //Si tiene filtros vamos a tenerun where.
+    if (isset($filtros) && count($filtros) > 0) {
+        $sql .= " WHERE ";
+        //Ahora agregamos los filtros.
+        foreach ($filtros as $key => $value) {
+            $param = '';
+            switch ($key) {
+                case 'fil_nombre':
+                    $param = "nombre";
+                    break;
+                case 'fil_plataforma':
+                    $param = "plataforma";
+                    break;
+                case 'fil_lanzamiento':
+                    $param = "anio_lanzamiento";
+                    break;
+                case 'fil_genero':
+                    $param = "genero";
+                    break;
+            }
+            if(!empty($param)){
+                $sql .= $param;
+            }
+        }
+    }
+    //Si tiene orden lo agregamos.
     if (isset($order)) {
         $sql .= " ORDER BY $order ASC";
     }

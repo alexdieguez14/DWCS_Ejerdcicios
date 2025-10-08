@@ -23,6 +23,22 @@ if (isset($_GET["eliminar"])) {
 </head>
 
 <body>
+    <!-- Filtros de búsqueda -->
+    <fieldset>
+        <legend>Filtros de búsqueda</legend>
+        <!-- Envio el formulario por get para que me mantenga los parametros de ordenación de la tabla. -->
+        <form action="" method="get">
+            <label for="fil_nombre"></label>
+            <input type="text" name="fil_nombre"><br>
+            <label for="fil_plataforma"></label>
+            <input type="text" name="fil_plataforma"><br>
+            <label for="fil_lanzamiento"></label>
+            <input type="text" name="fil_lanzamiento"><br>
+            <label for="fil_genero"></label>
+            <input type="text" name="fil_genero"><br>
+            <button type="submit">Filtrar</button>
+        </form>
+    </fieldset>
     <h1>Videojuegos registrados</h1>
     <table>
         <tr>
@@ -34,10 +50,19 @@ if (isset($_GET["eliminar"])) {
         </tr>
         <!-- Datos de ejemplo. Tiene que ser dinámico -->
         <?php
+        //Si tiene un parámetro de ordenación lo recuperamos.
+        $orden = $_REQUEST["order"]??null;
+        //Si tiene filtros los agregamos a un array de filtros
+        $filtros = [];
+        foreach($_REQUES as $param=>$value){
+            if(str_starts_with($param,'fil_')){
+                $filtros[$param]= $value;
+            }
+        }
         if(isset($_REQUEST["order"])){
-            $videojuegos = getVideojuegos($_REQUEST["order"]);
+            $videojuegos = getVideojuegos($filtros,$_REQUEST["order"]);
         }else{
-            $videojuegos = getVideojuegos();
+            $videojuegos = getVideojuegos($filtros);
         }
         
         foreach ($videojuegos as $v) {
