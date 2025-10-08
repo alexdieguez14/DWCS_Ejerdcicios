@@ -35,6 +35,7 @@
 * [10. Interfaces y Múltiples Tipos de Objetos](UD1/Ejercicios/1_2/e10.php)
 
 #### [Actividad 1.3: Ejercicios PHP con acceso a bases de datos](UD1/Ejercicios/1_3)
+* [1. Login y registro](UD1/Ejercicios/1_3/1_3_1/login.php)
 
 # [Unidad 2](UD2)
  > **Cookies** - **sesiones** - **seguridad**
