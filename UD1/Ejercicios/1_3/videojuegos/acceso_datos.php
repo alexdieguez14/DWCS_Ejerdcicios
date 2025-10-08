@@ -38,10 +38,10 @@ function getVideojuego(int $id): Videojuego|false
 function getVideojuegos($order = null): array
 {
     $sql = "SELECT id, anio_lanzamiento, genero, nombre, plataforma FROM videojuegos";
-    if(isset($order)){
+    if (isset($order)) {
         $sql .= " ORDER BY $order ASC";
     }
-    
+
     $db = getConnection();
     $statement = $db->query($sql);
 
@@ -88,8 +88,8 @@ function updateVideojuego(Videojuego $v): bool
         $sql = "UPDATE videojuegos 
         SET nombre='" . $v->getNombre() . "',plataforma='" . $v->getPlataforma() . "',anio_lanzamiento='" . $v->getLanzamiento() . "',genero='" . $v->getGenero() . "' WHERE id=" . $v->getId();
     } else {
-         $sql = "UPDATE videojuegos 
-        SET nombre='" . $v->getNombre() . "',plataforma='" . $v->getPlataforma() . "',anio_lanzamiento='" . $v->getLanzamiento() . " WHERE id=" . $v->getId();
+        $sql = "UPDATE videojuegos 
+        SET nombre='" . $v->getNombre() . "',plataforma='" . $v->getPlataforma() . "',anio_lanzamiento='" . $v->getLanzamiento() . "' ,genero=NULL WHERE id=" . $v->getId();
     }
 
     $db = getConnection();

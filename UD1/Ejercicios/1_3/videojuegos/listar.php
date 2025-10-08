@@ -1,5 +1,6 @@
 <?php
 include_once("acceso_datos.php");
+//Si está entrando desde un enlace de eliminar realizamos la acción.
 if (isset($_GET["eliminar"])) {
     $m = "El videojuego no se ha eliminado";
 
@@ -8,6 +9,8 @@ if (isset($_GET["eliminar"])) {
 
     }
     echo '<script>alert("', $m, '")</script>';
+    //Esto es una redirección y nos sirve para que no se quede el parámetro eliminar en la URL
+    header("Location: listar.php");
 }
 ?>
 <!DOCTYPE html>
@@ -48,6 +51,7 @@ if (isset($_GET["eliminar"])) {
         }
         ?>
     </table>
+    <a href="crear.php">Nuevo videojuego</a>
 
 </body>
 
