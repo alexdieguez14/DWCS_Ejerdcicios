@@ -39,9 +39,16 @@ if(!jugando()){
         <?php
         if(!isset($error)){
             $dif = comprobarNumero($num);
+            if(getIntentos()==MAX_INTENTS && $dif){
+                echo "Has perdido! El número era: ",getNumAleatorio();
+                echo "<br><a href=''>Volver a empezar</a>";
+                finalizarJuego();
+                exit;
+            }
+
             if($dif == 0){
                 echo "Enhorabuena, has acertad, el número era $num y has necesitado ", getIntentos(), " intentos.";
-                echo "<a href=''>Volver a empezar</a>";
+                echo "<br><a href=''>Volver a empezar</a>";
                 finalizarJuego();
             }else{
                 $msg = $dif > 0? "inferior":"superior";

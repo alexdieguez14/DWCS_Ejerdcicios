@@ -2,6 +2,7 @@
 
 define("COOKIE_RAND", "rand");
 define("COOKIE_INTENT", "intent");
+define("MAX_INTENTS",10);
 
 function iniciarJuego()
 {
