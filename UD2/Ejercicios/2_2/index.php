@@ -1,5 +1,10 @@
 <?php
 require_once "controller.php";
+if(!getJugadorActual()){
+    header("Location:access.php");
+    exit;
+}
+
 if(!jugando()){
     iniciarJuego();
 }else{
@@ -49,6 +54,7 @@ if(!jugando()){
             if($dif == 0){
                 echo "Enhorabuena, has acertad, el número era $num y has necesitado ", getIntentos(), " intentos.";
                 echo "<br><a href=''>Volver a empezar</a>";
+                registrarPartida();
                 finalizarJuego();
             }else{
                 $msg = $dif > 0? "inferior":"superior";

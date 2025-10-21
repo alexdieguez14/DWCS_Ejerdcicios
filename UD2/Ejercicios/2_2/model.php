@@ -16,6 +16,15 @@ class Partida
     public $numero;
     public $segundos;
     public $jugador;
+
+    public function __construct(int $numero, int $intentos, int $segundos, Jugador $jugador, $id = null)
+    {
+        $this->id = $id;
+        $this->intentos = $intentos;
+        $this->numero = $numero;
+        $this->segundos = $segundos;
+        $this->jugador = $jugador;
+    }
 }
 
 function getConnection()
@@ -61,7 +70,7 @@ function getPartidas()
         }
     } catch (PDOException $th) {
         error_log($th->getMessage());
-    }finally{
+    } finally {
         $stm->closeCursor();
         $db = null;
     }
@@ -89,7 +98,7 @@ function getPartidasJugador(Jugador $jugador)
         $db = getConnection();
         $stm = $db->prepare($sql);
         //Preparar la consulta.
-        $stm->bindValue('nombre_jugador',$jugador->nombre,PDO::PARAM_STR);
+        $stm->bindValue('nombre_jugador', $jugador->nombre, PDO::PARAM_STR);
         $stm->execute();
         foreach ($stm as $row) {
             $p = new Partida();
@@ -105,13 +114,57 @@ function getPartidasJugador(Jugador $jugador)
         }
     } catch (PDOException $th) {
         error_log($th->getMessage());
-    }finally{
+    } finally {
         $stm->closeCursor();
         $db = null;
     }
 
 
     return $partidas;
+}
+
+function getJugador(Jugador $jugador)
+{
+    //Si el jugador no tiene parámetros devuelvo falso.
+    if(!isset($jugador->id) && !isset($jugador->nombre)){
+        return false;
+    }
+
+    $resultado = false;
+    $sql = "SELECT id, nombre FROM jugador WHERE 1=1 ";
+    if (isset($jugador->id)) {
+        $sql .= " AND id = :id";
+    }
+
+    if (isset($jugador->nombre)) {
+        $sql .= " AND nombre = :nombre";
+    }
+    try {
+        $db = getConnection();
+        $stm = $db->prepare($sql);
+        
+        if (isset($jugador->id)) {
+            $stm->bindValue("id",$jugador->id,PDO::PARAM_INT);
+        }
+
+        if (isset($jugador->nombre)) {
+            $stm->bindValue("nombre",$jugador->nombre,PDO::PARAM_STR);
+        }
+        $stm->execute();
+        $row = $stm->fetch();
+        if($row){
+            $resultado = new Jugador();
+            $resultado->id = $row['id'];
+            $resultado->nombre = $row['nombre'];
+        }
+    } catch (PDOException $th) {
+        error_log($th->getMessage());
+    } finally {
+        $stm->closeCursor();
+        $db = null;
+    }
+
+    return $resultado;
 }
 
 /**
@@ -121,15 +174,38 @@ function getPartidasJugador(Jugador $jugador)
  */
 function addJugador(Jugador $jugador): bool
 {
-
+    $agregado = false;
     $sql = "INSERT INTO jugador (nombre) VALUES(:nombre)";
     try {
         $db = getConnection();
         $stm = $db->prepare($sql);
         $stm->bindValue('nombre', $jugador->nombre);
-    } catch (\Throwable $th) {
+        $agregado = $stm->execute();
+    } catch (PDOException $th) {
         error_log($th->getMessage());
-    }finally{
+    } finally {
         $db = null;
     }
+    return $agregado;
+}
+
+function addPartida(Partida $partida): bool
+{
+    $agregado = false;
+    $sql = "INSERT INTO partida( segundos, numero, intentos, jugador_id) VALUES (:segundos,:numero, :intentos, :jugador_id)";
+    try {
+        $db = getConnection();
+        $stm = $db->prepare($sql);
+        $stm->bindValue('segundos', $partida->segundos);
+        $stm->bindValue('numero', $partida->numero);
+        $stm->bindValue('intentos', $partida->intentos);
+        $stm->bindValue('jugador_id', $partida->jugador->id);
+
+        $agregado = $stm->execute();
+    } catch (PDOException $th) {
+        error_log($th->getMessage());
+    } finally {
+        $db = null;
+    }
+    return $agregado;
 }
