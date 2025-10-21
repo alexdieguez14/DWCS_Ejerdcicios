@@ -1,84 +1,77 @@
 <?php
 require_once "model.php";
-define("COOKIE_RAND", "rand");
-define("COOKIE_INTENT", "intent");
-define("MAX_INTENTS", 10);
-define("COOKIE_PLAYER", "player");
-define("COOKIE_INIT", "init");
+
+define("COOKIE_JUEGO", "juego");
+
+function setJuegoData(array $data)
+{
+    $json = json_encode($data);
+    setcookie(COOKIE_JUEGO, $json, time() + 3600);
+}
+
+function getJuegoData(): ?array
+{
+    if (!isset($_COOKIE[COOKIE_JUEGO])) return null;
+    $data = json_decode($_COOKIE[COOKIE_JUEGO], true);
+    return is_array($data) ? $data : null;
+}
 
 function iniciarJuego()
 {
-    $num = rand(1, 1000);
-    setcookie(COOKIE_INTENT, '1', time() + 600);
-    setcookie(COOKIE_RAND, $num, time() + 3600);
-    setcookie(COOKIE_INIT, time(), time() + 3600);
+    $data = [
+        'rand' => rand(1, 1000),
+        'intent' => 1,
+        'inic' => time()
+    ];
+    setJuegoData($data);
 }
 
 function jugando(): bool
 {
-    return isset($_COOKIE[COOKIE_RAND]) && isset($_COOKIE[COOKIE_INTENT]);
+    $data = getJuegoData();
+    return isset($data['rand'], $data['intent']);
 }
 
 function finalizarJuego()
 {
-    setcookie(COOKIE_INTENT, '', time() - 600);
-    setcookie(COOKIE_RAND, "", time() - 600);
-    setcookie(COOKIE_PLAYER, "", time() - 600);
+    setcookie(COOKIE_JUEGO, "", time() - 3600);
 }
 
 function getIntentos()
 {
-    if (jugando()) {
-        return intval($_COOKIE[COOKIE_INTENT]);
-    }
-    return false;
+    $data = getJuegoData();
+    return $data['intent'] ?? false;
 }
 
 function getSegundosIniciales()
 {
-    if (jugando()) {
-        return intval($_COOKIE[COOKIE_INIT]);
-    }
-    return false;
-}
-
-function getJugadorActual()
-{
-    $jugador = false;
-
-    $jugador = new Jugador();
-    $jugador->id = intval($_COOKIE[COOKIE_PLAYER]);
-    $jugador = getJugador($jugador);
-    return $jugador;
+    $data = getJuegoData();
+    return $data['inic'] ?? false;
 }
 
 function getNumAleatorio()
 {
-    if (jugando()) {
-        return intval($_COOKIE[COOKIE_RAND]);
-    }
-    return false;
+    $data = getJuegoData();
+    return $data['rand'] ?? false;
 }
 
 function setIntentos($numIntentos)
 {
-    setcookie(COOKIE_INTENT, $numIntentos, time() + 600);
+    $data = getJuegoData();
+    if (!$data) return;
+    $data['intent'] = $numIntentos;
+    setJuegoData($data);
 }
 
-/**
- * Devuelve 0 si el número coincide con el aleatorio, un número positivo si es superior al aleatorio o un negativo si es inferior.
- * @param int $num
- * @return int
- */
 function comprobarNumero(int $num)
 {
-    if ($num != getNumAleatorio()) {
+    $rand = getNumAleatorio();
+    if ($num !== $rand) {
         setIntentos(getIntentos() + 1);
     }
-
-    return $num - getNumAleatorio();
-
+    return $num - $rand;
 }
+
 
 function registrarJugador(string $nombre)
 {
@@ -87,11 +80,22 @@ function registrarJugador(string $nombre)
     addJugador($jugador);
     $jugador = getJugador($jugador);
     if ($jugador) {
-        setcookie(COOKIE_PLAYER, $jugador->id, time() + 600);
+        $data = getJuegoData() ?? [];
+        $data['player'] = $jugador->id;
+        setJuegoData($data);
         return true;
     }
     return false;
+}
 
+function getJugadorActual()
+{
+    $data = getJuegoData();
+    if (!isset($data['player'])) return false;
+
+    $jugador = new Jugador();
+    $jugador->id = intval($data['player']);
+    return getJugador($jugador);
 }
 
 function registrarPartida()
@@ -99,5 +103,4 @@ function registrarPartida()
     $segundos = time() - getSegundosIniciales();
     $partida = new Partida(getNumAleatorio(), getIntentos(), $segundos, getJugadorActual());
     return addPartida($partida);
-
 }
