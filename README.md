@@ -61,7 +61,7 @@
 
 
 ### [Ejercicios](UD2/Ejercicios)
-
+* [2. Juego del número secreto](UD2/Ejercicios/2_2/)
 
 # [Unidad 3](UD3)
  > **MVC**
